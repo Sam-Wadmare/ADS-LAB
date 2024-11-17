@@ -2,34 +2,42 @@
 
 int arr[50];
 
-void merge(int low,int mid,int high) {
-    int i,left,right,temp[50];
-    i=low;
-    left=low;
-    right=mid+1;
-        while (left<=mid && right<=high) {
-            if(arr[left]<=arr[right]) {
-                temp[i]=arr[left];
-                left++;
-            }
-            else{
-                temp[i]=arr[right];
-                right++;
-            }
-            i++;
-        }
-        while(left<=mid) {
-            temp[i]=arr[left];
-                left++;
-        }
-        while(right<=high) {
-            temp[i]=arr[right];
-                right++;
-        }
-        for(i=low;i<=high;i++) {
-            arr[i]=temp[i];
-        }
+void merge(int low, int mid, int high) {
+    int i, left, right, temparr[50];
+    left = low;
+    right = mid + 1;
+    i = low;
 
+    // Merge the two halves into temparr
+    while (left <= mid && right <= high) {
+        if (arr[left] <= arr[right]) {
+            temparr[i] = arr[left];
+            left++;
+        } else {
+            temparr[i] = arr[right];
+            right++;
+        }
+        i++;
+    }
+
+    // Copy remaining elements from the left half
+    while (left <= mid) {
+        temparr[i] = arr[left];
+        left++;
+        i++;
+    }
+
+    // Copy remaining elements from the right half
+    while (right <= high) {
+        temparr[i] = arr[right];
+        right++;
+        i++;
+    }
+
+    // Copy the sorted subarray back to the original array
+    for (i = low; i <= high; i++) {
+        arr[i] = temparr[i];
+    }
 }
 
 void mergesort(int low, int high) {
